@@ -27,6 +27,7 @@ public class main {
         
         while(true) {
              Socket clie = serv.accept();
+             System.out.println("Connect");
              //Inicia thread do cliente
              new ThreadCliente(clie).start();
         }
