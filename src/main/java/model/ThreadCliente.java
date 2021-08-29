@@ -24,14 +24,6 @@ public class ThreadCliente extends Thread {
   public void run() {
     try
         {
-            String message;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            while((message=reader.readLine())!=null)
-            {
-                System.out.println("Message from client: "+message);
-                System.out.println("IP client: "+cliente.getInetAddress());
-            }
-            reader.close();
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             saida.writeObject(new Date());
             saida.flush();
