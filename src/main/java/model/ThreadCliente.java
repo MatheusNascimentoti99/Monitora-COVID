@@ -26,10 +26,10 @@ public class ThreadCliente extends Thread {
         {
             String message;
             BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+            System.out.println("IP client: "+cliente.getInetAddress());
             while((message=reader.readLine())!=null)
             {
                 System.out.println("Message from client: "+message);
-                System.out.println("IP client: "+cliente.getInetAddress());
             }
             reader.close();
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
