@@ -1,8 +1,10 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -16,22 +18,17 @@ public class ThreadCliente extends Thread {
   }
 
   public void run() {
-    try {
-        System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
-        ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-        saida.flush();
-        saida.writeObject("Servidor atendeu");
-        saida.close();
-        cliente.close();
-    }
-
-    catch(Exception e) {
-       System.out.println("Excecao ocorrida na thread: " + e.getMessage());
-       try {
-         cliente.close();
-       }
-
-       catch(Exception ec) {}
-    }
+    try
+        {
+            String message;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+            while((message=reader.readLine())!=null)
+            {
+                System.out.println("Message from client: "+message);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Client disconnected");
+        }
   }
 }
