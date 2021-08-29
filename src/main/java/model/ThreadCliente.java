@@ -32,6 +32,7 @@ public class ThreadCliente extends Thread {
                 System.out.println("Message from client: "+message);
                 System.out.println("IP client: "+cliente.getInetAddress());
             }
+            reader.close();
             PrintStream saida = new PrintStream(cliente.getOutputStream());
             saida.println("Response from Serve. Date:" + new Date().toString());
             saida.close();
