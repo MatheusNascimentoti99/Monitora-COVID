@@ -24,6 +24,7 @@ public class main {
         System.out.println("Servidor iniciado, ouvindo a porta " + serv.getLocalPort());
         System.out.println("Host: " + serv.toString());
         //Aguarda conexões
+        
         while(true) {
              Socket clie = serv.accept();
              //Inicia thread do cliente
