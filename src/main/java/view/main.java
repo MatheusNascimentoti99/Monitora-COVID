@@ -19,7 +19,7 @@ public class main {
       try {
         //Converte o parametro recebido para int (número da porta)
         System.out.println("Incializando o servidor...");
-        int port = 8082;
+        int port = 8080;
         //Iniciliza o servidor
         ServerSocket serv = new ServerSocket(port);
         System.out.println("Servidor iniciado, ouvindo a porta " + serv.getLocalPort());
