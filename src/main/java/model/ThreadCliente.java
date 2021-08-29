@@ -33,8 +33,8 @@ public class ThreadCliente extends Thread {
             }
             reader.close();
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-            saida.flush();
             saida.writeObject(new Date());
+            saida.flush();
             saida.close();
         }catch(Exception e)
         {
