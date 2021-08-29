@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Date;
 import java.util.logging.Level;
@@ -37,7 +36,6 @@ public class ThreadCliente extends Thread {
             saida.flush();
             saida.writeObject(new Date());
             saida.close();
-            cliente.close();
         }catch(Exception e)
         {
         try {
@@ -45,7 +43,6 @@ public class ThreadCliente extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ThreadCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }finally{
             System.out.println("Client disconnected");
         }
   }
