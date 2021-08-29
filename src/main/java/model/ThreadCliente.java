@@ -25,6 +25,7 @@ public class ThreadCliente extends Thread {
             while((message=reader.readLine())!=null)
             {
                 System.out.println("Message from client: "+message);
+                System.out.println("IP client: "+cliente.getInetAddress());
             }
         }catch(Exception e)
         {
