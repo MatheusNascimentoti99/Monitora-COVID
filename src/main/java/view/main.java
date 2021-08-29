@@ -27,7 +27,7 @@ public class main {
         
         while(true) {
              Socket clie = serv.accept();
-             System.out.println("Connect");
+             System.out.println(clie.getInetAddress().getHostAddress());
              //Inicia thread do cliente
              new ThreadCliente(clie).start();
         }
