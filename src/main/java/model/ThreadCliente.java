@@ -32,7 +32,6 @@ public class ThreadCliente extends Thread {
             {
                 System.out.println("Message from client: "+message);
             }
-            reader.close();
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             cliente.getOutputStream();
              String res = "HTTP/1.0 200 OK\n"+ "Server: HTTP server/0.1\n" 
@@ -42,6 +41,7 @@ public class ThreadCliente extends Thread {
                     + "<html><body>OK</body></html>";
             saida.write(res.getBytes());
             saida.flush();
+            reader.close();
             saida.close();
         }catch(Exception e)
         {
