@@ -36,9 +36,9 @@ public class ThreadCliente extends Thread {
             cliente.getOutputStream();
              String res = "HTTP/1.0 200 OK\n"+ "Server: HTTP server/0.1\n" 
                      + "Date: "+format.format(new java.util.Date())+"\n" 
-              + "Content-type: text/html; charset=UTF-8\n"
+              + "Content-type: application/json; charset=UTF-8\n"
                     + "Content-Length: 38\n\n"
-                    + "<html><body>OK</body></html>";
+                    + "{\"teste\": 0}";
             saida.write(res.getBytes());
             saida.flush();
             reader.close();
