@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,9 +33,14 @@ public class ThreadCliente extends Thread {
                 System.out.println("Message from client: "+message);
             }
             reader.close();
-            cliente.getOutputStream();
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-            saida.writeObject(new Date());
+            cliente.getOutputStream();
+             String res = "HTTP/1.0 200 OK\n"+ "Server: HTTP server/0.1\n" 
+                     + "Date: "+format.format(new java.util.Date())+"\n" 
+              + "Content-type: text/html; charset=UTF-8\n"
+                    + "Content-Length: 38\n\n"
+                    + "<html><body>OK</body></html>";
+            saida.write(res.getBytes());
             saida.flush();
             saida.close();
         }catch(Exception e)
@@ -47,4 +53,7 @@ public class ThreadCliente extends Thread {
             System.out.println("Client disconnected");
         }
   }
+  
+  private SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:Ss z");
+
 }
