@@ -34,9 +34,9 @@ public class ThreadCliente extends Thread {
             }
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             cliente.getOutputStream();
-             String res = "HTTP/1.0 200 OK\n"+ "Server: HTTP server/0.1\n" 
+             String res = "HTTP/1.1 200 OK\n"+ "Server: HTTP server/0.1\n" 
                      + "Date: "+format.format(new java.util.Date())+"\n" 
-              + "Content-type: application/json; charset=UTF-8\n"
+              + "Content-type: application/x-www-form-urlencoded; charset=UTF-8\n"
                     + "Content-Length: 38\n\n"
                     + "{\"teste\": 0}";
             saida.write(res.getBytes());
