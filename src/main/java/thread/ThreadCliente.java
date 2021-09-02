@@ -21,20 +21,20 @@ public class ThreadCliente extends Thread {
 
     public void run() {
         try {
+            
+            BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
-            Writer out = new OutputStreamWriter(cliente.getOutputStream(), "utf-8");
+            PrintWriter out = new PrintWriter ( new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream(), "utf-8")));
             out.write("HTTP/1.1 200 OK\r\n"
                     + "Content-Type: application/json\r\n"
                     + "\r\n"
                     + "hello world");
             out.flush();
             
-            BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
             
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 System.out.println(inputLine);
-                break;
             }
             out.close();
             in.close();
