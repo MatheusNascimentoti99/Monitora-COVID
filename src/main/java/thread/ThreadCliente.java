@@ -25,20 +25,13 @@ public class ThreadCliente extends Thread {
   public void run() {
     try
         {
-            String message;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            System.out.println("IP client: "+cliente.getInetAddress());
-            while((message=reader.readLine())!=null)
-            {
-                System.out.println("Message from client: "+message);
-            }
+           
             System.out.println("Before");
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\\r\\n";
             saida.write(res.getBytes());
             saida.flush();
-            reader.close();
             saida.close();
         }catch(Exception e)
         {
