@@ -35,14 +35,14 @@ public class ThreadCliente extends Thread {
                     + "\r\n"
                     + "hello world";
             String message;
-            while ((message = reader.readLine()) != null) {
-                System.out.println(cliente.isConnected());
-                System.out.println("Message from client: " + message);
-            }
+            int charactere = reader.read();
+            do {
+                System.out.print(String.valueOf(charactere));
+            } while (reader.read() != -1);
             System.out.println("end");
             saida.println(res);
             saida.close();
-//            reader.close();
+            reader.close();
             cliente.close();
         } catch (Exception e) {
         }
