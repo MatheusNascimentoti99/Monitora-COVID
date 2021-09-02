@@ -28,19 +28,27 @@ public class ThreadCliente extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
             PrintWriter out = new PrintWriter ( new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream(), "utf-8")));
-            out.write("HTTP/1.1 200 OK\r\n"
-                    + "Content-Type: application/json\r\n"
-                    + "\r\n"
-                    + "hello world");
-            out.flush();
             
             
             String inputLine;
+            boolean body = false;
+            String body_json = "";
             try{
                 while ((inputLine = in.readLine()) != null) {
                     System.out.println(inputLine);
+                    if(inputLine.contains("{")){
+                       body = true; 
+                    }
+                    if(body)
+                        body_json = body_json + inputLine;
+                        
                 }
             }catch (Exception e){
+                out.write("HTTP/1.1 200 OK\r\n"
+                    + "Content-Type: application/json\r\n"
+                    + "\r\n"
+                    + "hello world" + body_json);
+                out.flush();
                 out.close();
                 in.close();
             }
