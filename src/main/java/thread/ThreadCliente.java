@@ -35,10 +35,10 @@ public class ThreadCliente extends Thread {
                     + "\r\n"
                     + "hello world";
             String message;
-            int charactere = reader.read();
-            do {
-                System.out.print((char)(charactere));
-            } while (reader.read() != -1);
+            while ((message = reader.readLine()) != null) {
+                System.out.println("Message from client: " + message);
+                break;
+            }
             System.out.println("end");
             saida.println(res);
             saida.close();
