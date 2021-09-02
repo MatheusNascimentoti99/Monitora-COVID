@@ -28,7 +28,7 @@ public class ThreadCliente extends Thread {
     public void run() {
         try {
             PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\r\n"
                     + "Content-Type: application/json\r\n"
