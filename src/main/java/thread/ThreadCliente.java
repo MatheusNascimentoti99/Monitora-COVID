@@ -30,8 +30,10 @@ public class ThreadCliente extends Thread {
             out.flush();
             BufferedReader ois = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
             String inputLine;
+            sleep(200);
             while ((inputLine = ois.readLine()) != null) {
                 System.out.println(inputLine);
+                System.out.println(cliente.getInputStream().available());
                 if(cliente.getInputStream().available() <= 0)
                     break;
             }
