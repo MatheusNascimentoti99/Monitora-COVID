@@ -37,7 +37,7 @@ public class ThreadCliente extends Thread {
             String message;
             int charactere = reader.read();
             do {
-                System.out.print(String.valueOf(charactere));
+                System.out.print((char)(charactere));
             } while (reader.read() != -1);
             System.out.println("end");
             saida.println(res);
