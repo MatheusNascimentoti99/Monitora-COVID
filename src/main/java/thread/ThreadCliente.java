@@ -19,39 +19,34 @@ import java.util.logging.Logger;
 
 public class ThreadCliente extends Thread {
 
-  private Socket cliente;
+    private Socket cliente;
 
-  public ThreadCliente(Socket cliente) {
-    this.cliente = cliente;
-  }
+    public ThreadCliente(Socket cliente) {
+        this.cliente = cliente;
+    }
 
-  public void run() {
-    try
-        {
-            String message;
+    public void run() {
+        try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
             PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\r\n"
-                        + "Content-Type: application/json\r\n"
-                        + "\r\n"
-                        + "hello world";
+                    + "Content-Type: application/json\r\n"
+                    + "\r\n"
+                    + "hello world";
             saida.println(res);
-            while((message=reader.readLine())!=null)
-            {
-                System.out.println("Message from client: "+message);
+
+            String message;
+            while ((message = reader.readLine()) != null) {
+                System.out.println("Message from client: " + message);
             }
-        }catch(Exception e){}
-        finally {
-        try {
             cliente.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ThreadCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
         }
-            System.out.println("Client disconnected");
-        }
-  }
-  
-  private SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:Ss z");
+
+        System.out.println("Client disconnected");
+    }
+
+    private SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:Ss z");
 
 }
