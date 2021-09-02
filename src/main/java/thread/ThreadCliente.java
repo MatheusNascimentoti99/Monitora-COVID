@@ -28,19 +28,19 @@ public class ThreadCliente extends Thread {
     public void run() {
         try {
             PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\r\n"
                     + "Content-Type: application/json\r\n"
                     + "\r\n"
                     + "hello world";
             String message;
-            while ((message = reader.readLine()) != null) {
-                System.out.println("Message from client: " + message);
-            }
+//            while ((message = reader.readLine()) != null) {
+//                System.out.println("Message from client: " + message);
+//            }
             saida.println(res);
             saida.close();
-            reader.close();
+//            reader.close();
             cliente.close();
         } catch (Exception e) {
         }
