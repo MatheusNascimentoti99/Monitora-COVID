@@ -2,6 +2,7 @@ package thread;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
@@ -10,6 +11,8 @@ import java.io.Writer;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ThreadCliente extends Thread {
 
@@ -21,7 +24,7 @@ public class ThreadCliente extends Thread {
 
     public void run() {
         try {
-            
+            cliente.setSoTimeout(200);
             BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
             PrintWriter out = new PrintWriter ( new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream(), "utf-8")));
@@ -33,13 +36,22 @@ public class ThreadCliente extends Thread {
             
             
             String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
+            try{
+                while ((inputLine = in.readLine()) != null) {
+                    System.out.println(inputLine);
+                }
+            }catch (Exception e){
+                out.close();
+                in.close();
             }
-            out.close();
-            in.close();
-            cliente.close();
+            
         } catch (Exception e) {
+        }finally{
+            try {
+                cliente.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ThreadCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         System.out.println("Client disconnected");
