@@ -32,6 +32,8 @@ public class ThreadCliente extends Thread {
             String inputLine;
             while ((inputLine = ois.readLine()) != null) {
                 System.out.println(inputLine);
+                if(cliente.getInputStream().available() <= 0)
+                    break;
             }
             out.close();
             cliente.close();
