@@ -29,11 +29,12 @@ public class ThreadCliente extends Thread {
                     + "hello world");
             out.flush();
             BufferedReader ois = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+            sleep(200);
+            cliente.getInputStream().close();
             String inputLine;
-            while ((inputLine = ois.readLine()).length() > 0) {
+            while ((inputLine = ois.readLine()) != null) {
                 System.out.println(inputLine);
             }
-            ois.close();
             out.close();
             cliente.close();
         } catch (Exception e) {
