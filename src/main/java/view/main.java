@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
-import model.ThreadCliente;
+import thread.ThreadCliente;
 /**
  *
  * @author matheusnascimento
