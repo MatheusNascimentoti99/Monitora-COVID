@@ -34,12 +34,13 @@ public class ThreadCliente extends Thread {
                     + "Content-Type: application/json\r\n"
                     + "\r\n"
                     + "hello world";
-            saida.println(res);
-
+            System.out.println("Here");
             String message;
             while ((message = reader.readLine()) != null) {
                 System.out.println("Message from client: " + message);
             }
+            saida.println(res);
+
             cliente.close();
         } catch (Exception e) {
         }
