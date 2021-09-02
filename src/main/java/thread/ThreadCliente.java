@@ -39,6 +39,7 @@ public class ThreadCliente extends Thread {
                 System.out.println(cliente.isConnected());
                 System.out.println("Message from client: " + message);
             }
+            System.out.println("end");
             saida.println(res);
             saida.close();
 //            reader.close();
