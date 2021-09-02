@@ -39,7 +39,8 @@ public class ThreadCliente extends Thread {
                 System.out.println("Message from client: " + message);
             }
             saida.println(res);
-
+            saida.close();
+            reader.close();
             cliente.close();
         } catch (Exception e) {
         }
