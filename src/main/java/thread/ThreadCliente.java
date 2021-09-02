@@ -1,6 +1,7 @@
 package thread;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,11 +30,11 @@ public class ThreadCliente extends Thread {
         {
            
             System.out.println("Before");
-            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+            
+            PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\\r\\n";
-            saida.write(res.getBytes());
-            saida.flush();
+            saida.println(res);
             saida.close();
         }catch(Exception e)
         {
