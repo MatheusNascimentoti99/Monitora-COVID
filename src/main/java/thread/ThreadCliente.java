@@ -33,7 +33,11 @@ public class ThreadCliente extends Thread {
             
             PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
             System.out.println("After");
-            String res = "HTTP/1.1 200 OK\\r\\n";
+            String res = "HTTP/1.1 200 OK\r\n"
+                        + "Content-Type: text/html\r\n"
+                        + "Content-Length: 11\r\n"
+                        + "\r\n"
+                        + "hello world";
             saida.println(res);
             saida.close();
         }catch(Exception e)
