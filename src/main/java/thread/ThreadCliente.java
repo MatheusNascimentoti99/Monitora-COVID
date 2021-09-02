@@ -47,7 +47,7 @@ public class ThreadCliente extends Thread {
                 out.write("HTTP/1.1 200 OK\r\n"
                     + "Content-Type: application/json\r\n"
                     + "\r\n"
-                    + "hello world" + body_json);
+                    + "O Json passado foi: " + body_json);
                 out.flush();
                 out.close();
                 in.close();
