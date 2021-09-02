@@ -30,12 +30,6 @@ public class ThreadCliente extends Thread {
         {
             String message;
             BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            System.out.println("IP client: "+cliente.getInetAddress());
-            while((message=reader.readLine())!=null)
-            {
-                System.out.println("Message from client: "+message);
-            }
-            reader.close();
             PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\r\n"
@@ -43,7 +37,10 @@ public class ThreadCliente extends Thread {
                         + "\r\n"
                         + "hello world";
             saida.println(res);
-            saida.close();
+            while((message=reader.readLine())!=null)
+            {
+                System.out.println("Message from client: "+message);
+            }
         }catch(Exception e){}
         finally {
         try {
