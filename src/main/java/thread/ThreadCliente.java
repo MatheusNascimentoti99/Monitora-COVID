@@ -35,7 +35,7 @@ public class ThreadCliente extends Thread {
             System.out.println("Before");
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             System.out.println("After");
-            String res = "HTTP/1.0 200 OK\\r\\n";
+            String res = "HTTP/1.1 200 OK\\r\\n";
             saida.write(res.getBytes());
             saida.flush();
             reader.close();
