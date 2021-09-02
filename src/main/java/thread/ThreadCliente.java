@@ -35,17 +35,17 @@ public class ThreadCliente extends Thread {
             {
                 System.out.println("Message from client: "+message);
             }
+            reader.close();
             PrintWriter saida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())));
             System.out.println("After");
             String res = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: application/json\r\n"
                         + "\r\n"
                         + "hello world";
-            reader.close();
             saida.println(res);
             saida.close();
-        }catch(Exception e)
-        {
+        }catch(Exception e){}
+        finally {
         try {
             cliente.close();
         } catch (IOException ex) {
