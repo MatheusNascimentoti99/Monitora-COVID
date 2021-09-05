@@ -1,68 +1,86 @@
 package thread;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
+import java.net.SocketTimeoutException;
+import java.nio.file.Files;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import util.RequisicaoHTTP;
+import util.RespostaHTTP;
 public class ThreadCliente extends Thread {
 
-    private Socket cliente;
+    private final Socket socket;
+    private boolean conectado;
+
 
     public ThreadCliente(Socket cliente) {
-        this.cliente = cliente;
+        this.socket = cliente;
     }
 
+    @Override
     public void run() {
-        try {
-            cliente.setSoTimeout(200);
-            BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-
-            PrintWriter out = new PrintWriter ( new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream(), "utf-8")));
-            
-            
-            String inputLine;
-            boolean body = false;
-            String body_json = "";
-            try{
-                while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
-                    if(inputLine.contains("{")){
-                       body = true; 
-                    }
-                    if(body)
-                        body_json = body_json + inputLine;
-                        
-                }
-            }catch (Exception e){
-                out.write("HTTP/1.1 200 OK\r\n"
-                    + "Content-Type: application/json\r\n"
-                    + "\r\n"
-                    + "O Json passado foi: " + body_json);
-                out.flush();
-                out.close();
-                in.close();
-            }
-            
-        } catch (Exception e) {
-        }finally{
+        conectado = true;
+        //imprime na tela o IP do cliente
+        System.out.println(socket.getInetAddress());
+        while (conectado) {
             try {
-                cliente.close();
-            } catch (IOException ex) {
-                Logger.getLogger(ThreadCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+                //cria uma requisicao a partir do InputStream do cliente
+                RequisicaoHTTP requisicao = RequisicaoHTTP.lerRequisicao(socket.getInputStream());
+                //se a conexao esta marcada para se mantar viva entao seta keepalive e o timeout
+                if (requisicao.isManterViva()) {
+                    socket.setKeepAlive(true);
+                    socket.setSoTimeout((int) requisicao.getTempoLimite());
+                } else {
+                    //se nao seta um valor menor suficiente para uma requisicao
+                    socket.setSoTimeout(300);
+                }
 
-        System.out.println("Client disconnected");
+                //se o caminho foi igual a / entao deve pegar o /index.html
+                if (requisicao.getRecurso().equals("/")) {
+                    requisicao.setRecurso("index.html");
+                }
+                //abre o arquivo pelo caminho
+                File arquivo = new File(requisicao.getRecurso().replaceFirst("/", ""));
+
+                RespostaHTTP resposta;
+
+                //se o arquivo existir então criamos a reposta de sucesso, com status 200
+                if (arquivo.exists()) {
+                    resposta = new RespostaHTTP(requisicao.getProtocolo(), 200, "OK");
+                } else {
+                    //se o arquivo não existe então criamos a reposta de erro, com status 404
+                    resposta = new RespostaHTTP(requisicao.getProtocolo(), 404, "Not Found");
+                    arquivo = new File("404.html");
+                }
+                //lê todo o conteúdo do arquivo para bytes e gera o conteudo de resposta
+                resposta.setConteudoResposta("Testando requisicao HTTP".getBytes());
+                //converte o formato para o GMT espeficicado pelo protocolo HTTP
+                String dataFormatada = format.format(new Date());
+                //cabeçalho padrão da resposta HTTP/1.1
+                resposta.setCabecalho("Date", dataFormatada);
+                resposta.setCabecalho("Server", "HTTP server/0.1");
+                resposta.setCabecalho("Content-Type", "application/json");
+                resposta.setCabecalho("Content-Length", resposta.getTamanhoResposta());
+                //cria o canal de resposta utilizando o outputStream
+                resposta.setSaida(socket.getOutputStream());
+                resposta.enviar();
+            } catch (IOException ex) {
+                //quando o tempo limite terminar encerra a thread
+                if (ex instanceof SocketTimeoutException) {
+                    try {
+                        conectado = false;
+                        socket.close();
+                    } catch (IOException ex1) {
+                        Logger.getLogger(ThreadCliente.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                }
+            }
+
+        }
     }
 
     private SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:Ss z");
