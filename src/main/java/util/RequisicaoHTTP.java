@@ -26,10 +26,11 @@ public class RequisicaoHTTP {
          contem as informaçoes da requisição
          */
         String linhaRequisicao = buffer.readLine();
+                System.out.println(linhaRequisicao);
+
         //quebra a string pelo espaço em branco
         String[] dadosReq = linhaRequisicao.split(" ");
         
-        System.out.println(linhaRequisicao);
         //pega o metodo
         requisicao.setMetodo(dadosReq[0]);
         //paga o caminho do arquivo
