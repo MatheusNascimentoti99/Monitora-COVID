@@ -15,19 +15,20 @@ import model.Paciente;
  *
  * @author matheusnascimento
  */
-public class RouterListUsers implements Router{
+public class MedicoRouter implements Router{
 
-    public Object[] response(Object body, HashMap data_base) {
+    public Object[] GET(Object body, HashMap data_base) {
         Object [] res = new Object[3]; //Response
         try{
             Gson gson = new Gson(); // Or use new GsonBuilder().create();
             Iterator i = data_base.values().iterator();
-            Paciente paciente;
             StringBuilder jsonBuilder = new StringBuilder();
             jsonBuilder.append('[');
+
+            Object row;
             while(i.hasNext()){
-                paciente = (Paciente)i.next();
-                jsonBuilder.append(paciente.toString());
+                row = i.next();
+                jsonBuilder.append(row.toString());
                 if(i.hasNext())
                     jsonBuilder.append(',');
             }
@@ -43,6 +44,18 @@ public class RouterListUsers implements Router{
             res[2] = "Erro ao buscar dados";
         }
         return res;
+    }
+
+    public Object[] POST(Object o, HashMap hm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object[] PUT(Object o, HashMap hm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object[] DELETE(Object o, HashMap hm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
      
 }

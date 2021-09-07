@@ -27,6 +27,9 @@ public class Paciente {
         this.temperatura = temperatura;
     }
 
+    public Paciente(String cpf){
+        this.cpf = cpf;
+    }
     public Paciente() {
         this.nome = "Anonimo";
     }

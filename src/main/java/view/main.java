@@ -22,16 +22,16 @@ import thread.ThreadCliente;
  */
 public class main {
 
-    public static HashMap<String, Paciente> data_base;
+    public static HashMap<String, Object> data_base;
 
     public static void main(String[] args) {
-        data_base = new HashMap<String, Paciente>();
+        data_base = new HashMap<String, Object>();
         ServerSocket serv = null;
         try {
             //Converte o parametro recebido para int (número da porta)
             System.out.println("Incializando o servidor...");
             //Iniciliza o servidor
-            serv = new ServerSocket(8000);
+            serv = new ServerSocket(Integer.valueOf(System.getenv("PORT")));
             System.out.println("Servidor iniciado, ouvindo a porta " + serv.getLocalPort());
             System.out.println("Host: " + serv.toString());
             //Aguarda conexões

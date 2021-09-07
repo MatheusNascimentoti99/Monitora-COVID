@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import model.Paciente;
 import util.RequisicaoHTTP;
 import util.RespostaHTTP;
+
 public class ThreadCliente extends Thread {
 
     private final Socket socket;
@@ -24,7 +25,7 @@ public class ThreadCliente extends Thread {
     public ThreadCliente(Socket cliente, HashMap data_base) {
         this.socket = cliente;
         this.data_base_ref = data_base;
-        
+
     }
 
     @Override
@@ -55,11 +56,10 @@ public class ThreadCliente extends Thread {
                     System.out.println(res[0].toString());
                     System.out.println(res[1].toString());
                     System.out.println(res[2].toString());
-                    resposta.setCodigoResposta((String)res[0]);
-                    resposta.setMensagem((String)res[1]);
-                    resposta.setConteudoResposta(((String)res[2]).getBytes());
-                }
-                else {
+                    resposta.setCodigoResposta((String) res[0]);
+                    resposta.setMensagem((String) res[1]);
+                    resposta.setConteudoResposta(((String) res[2]).getBytes());
+                } else {
                     resposta.setMensagem("Not Found");
                     resposta.setCodigoResposta("404");
                 }
@@ -88,8 +88,9 @@ public class ThreadCliente extends Thread {
                     socket.close();
                 } catch (IOException ex) {
                     Logger.getLogger(ThreadCliente.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    conectado = false;
                 }
-                conectado = false;
             }
 
         }

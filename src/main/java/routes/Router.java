@@ -13,6 +13,9 @@ import java.util.HashMap;
  */
 public interface Router {
     
-    public Object[] response(Object body, HashMap data_base);
+    public Object[] GET(Object body, HashMap data_base);
+    public Object[] POST(Object body, HashMap data_base);
+    public Object[] PUT(Object body, HashMap data_base);
+    public Object[] DELETE(Object body, HashMap data_base);
     
 }
