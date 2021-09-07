@@ -112,7 +112,8 @@ public class Paciente {
                 + " \"peso\": \"" + peso + "\","
                 + " \"freqCardiaca\": \"" + freqCardiaca + "\" , "
                 + "\"temperatura\": \"" + temperatura + "\","
-                + " \"idade\": \"" + idade + "\" }";
+                + " \"idade\": \"" + idade + "\" }"
+                + " \"statusAlert\": \"" + statusAlert + "\" }";
     }
     
     
