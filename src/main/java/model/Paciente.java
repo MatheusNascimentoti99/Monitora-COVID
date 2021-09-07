@@ -17,6 +17,7 @@ public class Paciente {
     private String freqCardiaca;
     private float temperatura; 
     private int idade;
+    private boolean statusAlert;
 
     public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura) {
         this.cpf = cpf;
@@ -25,6 +26,17 @@ public class Paciente {
         this.peso = peso;
         this.freqCardiaca = freqCardiaca;
         this.temperatura = temperatura;
+        this.statusAlert = false;
+    }
+    
+    public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura, boolean statusAlert) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.altura = altura;
+        this.peso = peso;
+        this.freqCardiaca = freqCardiaca;
+        this.temperatura = temperatura;
+        this.statusAlert = statusAlert;
     }
 
     public Paciente(String cpf){
