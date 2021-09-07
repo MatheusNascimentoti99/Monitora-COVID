@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ public class RequisicaoHTTP {
     private String protocolo;
     private String recurso;
     private String metodo;
+    private String body;
     private boolean manterViva = true;
     private long tempoLimite = 3000;
     private Map<String, List> cabecalhos;
@@ -26,7 +28,6 @@ public class RequisicaoHTTP {
          contem as informaçoes da requisição
          */
         String linhaRequisicao = buffer.readLine();
-                System.out.println(linhaRequisicao);
 
         //quebra a string pelo espaço em branco
         String[] dadosReq = linhaRequisicao.split(" ");
@@ -45,6 +46,25 @@ public class RequisicaoHTTP {
             requisicao.setCabecalho(linhaCabecalho[0], linhaCabecalho[1].trim().split(","));
             dadosHeader = buffer.readLine();
         }
+        requisicao.body = "";
+        int pilha = 0;  //Stack auxiliar
+        String line;
+        do{
+            if(!buffer.ready())
+                break;
+            line = buffer.readLine();
+
+            if(line == null || line.isEmpty()){
+                pilha = 0;
+            }
+            else if(line.charAt(0) == '{'){
+                pilha++;
+            }
+            else if(line.charAt(0) == '}'){
+                pilha--;
+            }
+            requisicao.body = requisicao.body + line;            
+        }while(pilha != 0);
         //se existir a chave Connection no cabeçalho
         if (requisicao.getCabecalhos().containsKey("Connection")) {
             //seta o manterviva a conexao se o connection for keep-alive
@@ -109,5 +129,14 @@ public class RequisicaoHTTP {
     public void setCabecalhos(Map<String, List> cabecalhos) {
         this.cabecalhos = cabecalhos;
     }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+    
     
 }

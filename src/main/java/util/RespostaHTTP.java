@@ -10,7 +10,7 @@ import java.util.TreeMap;
 public class RespostaHTTP {
 
     private String protocolo;
-    private int codigoResposta;
+    private String codigoResposta;
     private String mensagem;
     private byte[] conteudoResposta;
     private Map<String, List> cabecalhos;
@@ -20,7 +20,7 @@ public class RespostaHTTP {
 
     }
 
-    public RespostaHTTP(String protocolo, int codigoResposta, String mensagem) {
+    public RespostaHTTP(String protocolo, String codigoResposta, String mensagem) {
         this.protocolo = protocolo;
         this.codigoResposta = codigoResposta;
         this.mensagem = mensagem;
@@ -34,8 +34,8 @@ public class RespostaHTTP {
     public void enviar() throws IOException {
         //escreve o headers em bytes
         saida.write(montaCabecalho());
-        //escreve o conteudo em bytes
-        saida.write(conteudoResposta);
+        if(conteudoResposta != null)
+            saida.write(conteudoResposta);          //escreve o conteudo em bytes
         //encerra a resposta
         saida.flush();
     }
@@ -60,7 +60,10 @@ public class RespostaHTTP {
      * convertido em string
      */
     public String getTamanhoResposta() {
-        return getConteudoResposta().length + "";
+        if(conteudoResposta != null)
+            return getConteudoResposta().length + "";
+        else
+            return "0";
     }
 
     /**
@@ -101,11 +104,11 @@ public class RespostaHTTP {
         this.protocolo = protocolo;
     }
 
-    public int getCodigoResposta() {
+    public String getCodigoResposta() {
         return codigoResposta;
     }
 
-    public void setCodigoResposta(int codigoResposta) {
+    public void setCodigoResposta(String codigoResposta) {
         this.codigoResposta = codigoResposta;
     }
 
