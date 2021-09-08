@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.util.Comparator;
+
 /**
  *
  * @author matheusnascimento
  */
-public class Paciente {
+public class Paciente implements Comparable<Paciente>, Comparator<Object>{
     private String cpf;
     private String nome;
     private float altura;
@@ -17,7 +19,7 @@ public class Paciente {
     private String freqCardiaca;
     private float temperatura; 
     private int idade;
-    private boolean statusAlert;
+    private int gravidade;
 
     public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura) {
         this.cpf = cpf;
@@ -26,17 +28,17 @@ public class Paciente {
         this.peso = peso;
         this.freqCardiaca = freqCardiaca;
         this.temperatura = temperatura;
-        this.statusAlert = false;
+        this.gravidade = 0;
     }
     
-    public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura, boolean statusAlert) {
+    public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura, int statusAlert) {
         this.cpf = cpf;
         this.nome = nome;
         this.altura = altura;
         this.peso = peso;
         this.freqCardiaca = freqCardiaca;
         this.temperatura = temperatura;
-        this.statusAlert = statusAlert;
+        this.gravidade = statusAlert;
     }
 
     public Paciente(String cpf){
@@ -52,6 +54,14 @@ public class Paciente {
 
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+
+    public int getStatusAlert() {
+        return gravidade;
+    }
+
+    public void setStatusAlert(int statusAlert) {
+        this.gravidade = statusAlert;
     }
     
     
@@ -112,8 +122,16 @@ public class Paciente {
                 + " \"peso\": \"" + peso + "\","
                 + " \"freqCardiaca\": \"" + freqCardiaca + "\" , "
                 + "\"temperatura\": \"" + temperatura + "\","
-                + " \"idade\": \"" + idade + "\" }"
-                + " \"statusAlert\": \"" + statusAlert + "\" }";
+                + " \"idade\": \"" + idade + "\","
+                + " \"statusAlert\": \"" + gravidade + "\" }";
+    }
+
+    public int compareTo(Paciente o) {
+        return this.gravidade - o.gravidade;
+    }
+
+    public int compare(Object o1, Object o2) {
+        return ((Paciente)o1).gravidade - ((Paciente)o2).gravidade;
     }
     
     
