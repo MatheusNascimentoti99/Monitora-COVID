@@ -60,7 +60,7 @@ public class RouterController {
         if (path.equals("/medico/pacientes") && method.equals("GET")) {
             route = new MedicoRouter();
             if (method.equals("GET")) {
-                return route.GET(body, data_base);
+                return ((MedicoRouter)route).GETPatientes(json, data_base);
             }
 
         }

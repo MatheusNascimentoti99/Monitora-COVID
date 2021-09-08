@@ -127,11 +127,11 @@ public class Paciente implements Comparable<Paciente>, Comparator<Object>{
     }
 
     public int compareTo(Paciente o) {
-        return this.gravidade - o.gravidade;
+        return o.gravidade - this.gravidade;
     }
 
     public int compare(Object o1, Object o2) {
-        return ((Paciente)o1).gravidade - ((Paciente)o2).gravidade;
+        return ((Paciente)o2).gravidade - ((Paciente)o1).gravidade;
     }
     
     

@@ -19,32 +19,8 @@ import model.Paciente;
 public class MedicoRouter implements Router {
 
     public Object[] GET(Object body, HashMap data_base) {
-        Object[] res = new Object[3]; //Response
-        try {
-            Iterator i = data_base.values().iterator();
-            StringBuilder jsonBuilder = new StringBuilder();
-            jsonBuilder.append('[');
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-            Object row;
-            while (i.hasNext()) {
-                row = i.next();
-                jsonBuilder.append(row.toString());
-                if (i.hasNext()) {
-                    jsonBuilder.append(',');
-                }
-            }
-            jsonBuilder.append(']');
-            System.out.println(data_base.size());
-            res[0] = "200";
-            res[1] = "OK";
-            res[2] = jsonBuilder.toString();
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-            res[0] = "500";
-            res[1] = "Erro";
-            res[2] = "Erro ao buscar dados";
-        }
-        return res;
     }
 
     public Object[] POST(Object o, HashMap hm) {
@@ -67,7 +43,7 @@ public class MedicoRouter implements Router {
 
             HashMap<String, String> entries = gson.fromJson((String) body, HashMap.class);
             String sort = entries.get("sort");
-      
+
             Iterator i = data_base.values().iterator();
             StringBuilder jsonBuilder = new StringBuilder();
             jsonBuilder.append('[');
@@ -81,7 +57,7 @@ public class MedicoRouter implements Router {
                 }
 
             }
-            if(sort!= null && sort.equals("true")){
+            if (sort != null && sort.equals("true")) {
                 listPatientes.sort(new Paciente());
             }
             i = listPatientes.iterator();
