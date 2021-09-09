@@ -11,60 +11,58 @@ import java.util.Comparator;
  *
  * @author matheusnascimento
  */
-public class Paciente implements Comparable<Paciente>, Comparator<Object>{
+public class Paciente implements Comparable<Paciente>, Comparator<Object> {
+
     private String cpf;
     private String nome;
-    private float altura;
-    private float peso;
+    private String pressaoArterial;
     private String freqCardiaca;
-    private float temperatura; 
-    private int idade;
+    private String saturacao;
+    private float temperatura;
     private int gravidade;
 
-    public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura) {
+    public Paciente(String cpf, String nome, String pressaoArterial, String freqCardiaca, String saturacao, float temperatura, int gravidade) {
         this.cpf = cpf;
         this.nome = nome;
-        this.altura = altura;
-        this.peso = peso;
+        this.pressaoArterial = pressaoArterial;
         this.freqCardiaca = freqCardiaca;
+        this.saturacao = saturacao;
         this.temperatura = temperatura;
-        this.gravidade = 0;
-    }
-    
-    public Paciente(String cpf, String nome, float altura, float peso, String freqCardiaca, float temperatura, int statusAlert) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.altura = altura;
-        this.peso = peso;
-        this.freqCardiaca = freqCardiaca;
-        this.temperatura = temperatura;
-        this.gravidade = statusAlert;
+        this.gravidade = gravidade;
     }
 
-    public Paciente(String cpf){
+    public Paciente(String cpf, String nome, String pressaoArterial, String freqCardiaca, String saturacao, float temperatura) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.pressaoArterial = pressaoArterial;
+        this.freqCardiaca = freqCardiaca;
+        this.saturacao = saturacao;
+        this.temperatura = temperatura;
+    }
+
+    public Paciente(String cpf) {
         this.cpf = cpf;
     }
+
     public Paciente() {
         this.nome = "Anonimo";
     }
 
-    public int getIdade() {
-        return idade;
+    public String getSaturacao() {
+        return saturacao;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setSaturacao(String saturacao) {
+        this.saturacao = saturacao;
     }
 
-    public int getStatusAlert() {
+    public int getGravidade() {
         return gravidade;
     }
 
-    public void setStatusAlert(int statusAlert) {
-        this.gravidade = statusAlert;
+    public void setGravidade(int gravidade) {
+        this.gravidade = gravidade;
     }
-    
-    
 
     public String getCpf() {
         return cpf;
@@ -82,20 +80,12 @@ public class Paciente implements Comparable<Paciente>, Comparator<Object>{
         this.nome = nome;
     }
 
-    public float getAltura() {
-        return altura;
+    public String getPressaoArterial() {
+        return pressaoArterial;
     }
 
-    public void setAltura(float altura) {
-        this.altura = altura;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
+    public void setPressaoArterial(String altura) {
+        this.pressaoArterial = altura;
     }
 
     public String getFreqCardiaca() {
@@ -118,12 +108,11 @@ public class Paciente implements Comparable<Paciente>, Comparator<Object>{
     public String toString() {
         return "{" + "\"cpf\": \"" + cpf + "\" , "
                 + "\"nome\": \"" + nome + "\" ,"
-                + " \"altura\": \"" + altura + "\","
-                + " \"peso\": \"" + peso + "\","
+                + " \"pressaoArterial\": \"" + pressaoArterial + "\","
                 + " \"freqCardiaca\": \"" + freqCardiaca + "\" , "
+                + " \"saturacao\": \"" + saturacao + "\" , "
                 + "\"temperatura\": \"" + temperatura + "\","
-                + " \"idade\": \"" + idade + "\","
-                + " \"statusAlert\": \"" + gravidade + "\" }";
+                + " \"gravidade\": \"" + gravidade + "\" }";
     }
 
     public int compareTo(Paciente o) {
@@ -131,9 +120,7 @@ public class Paciente implements Comparable<Paciente>, Comparator<Object>{
     }
 
     public int compare(Object o1, Object o2) {
-        return ((Paciente)o2).gravidade - ((Paciente)o1).gravidade;
+        return ((Paciente) o2).gravidade - ((Paciente) o1).gravidade;
     }
-    
-    
-    
+
 }
