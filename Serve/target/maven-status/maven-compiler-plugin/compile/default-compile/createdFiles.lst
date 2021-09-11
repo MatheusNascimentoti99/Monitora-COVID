@@ -1,9 +1,0 @@
-view/main.class
-util/RespostaHTTP.class
-util/RequisicaoHTTP.class
-model/Paciente.class
-controller/RouterController.class
-routes/Router.class
-thread/ThreadCliente.class
-routes/RouterListUsers.class
-routes/RouterSendForm.class
