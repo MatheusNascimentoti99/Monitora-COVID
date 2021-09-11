@@ -6,10 +6,7 @@
 package controller;
 
 import com.google.gson.Gson;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.regex.Pattern;
 import routes.Router;
 import routes.MedicoRouter;
 import routes.PacienteRouter;
