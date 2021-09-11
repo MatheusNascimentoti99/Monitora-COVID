@@ -30,5 +30,5 @@
             </plugin>
         </plugins>
     </build>
-    <name>serve</name>
+    <name>Server</name>
 </project>

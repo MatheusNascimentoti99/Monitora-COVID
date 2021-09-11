@@ -48,6 +48,16 @@ public class Paciente implements Comparable<Paciente>, Comparator<Object> {
         this.nome = "Anonimo";
     }
 
+    public Paciente(String cpf, String nome) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.freqCardiaca = "0";
+        this.gravidade = 0;
+        this.pressaoArterial = "0";
+        this.saturacao = "0";
+        this.temperatura = 0;
+    }
+
     public String getSaturacao() {
         return saturacao;
     }
@@ -108,11 +118,11 @@ public class Paciente implements Comparable<Paciente>, Comparator<Object> {
     public String toString() {
         return "{" + "\"cpf\": \"" + cpf + "\" , "
                 + "\"nome\": \"" + nome + "\" ,"
-                + " \"pressaoArterial\": \"" + pressaoArterial + "\","
-                + " \"freqCardiaca\": \"" + freqCardiaca + "\" , "
-                + " \"saturacao\": \"" + saturacao + "\" , "
-                + "\"temperatura\": \"" + temperatura + "\","
-                + " \"gravidade\": \"" + gravidade + "\" }";
+                + " \"pressaoArterial\": \"" + pressaoArterial  + "\","
+                + " \"freqCardiaca\": \"" + freqCardiaca  + "\" , "
+                + " \"saturacao\": \"" + saturacao   + "\" , "
+                + "\"temperatura\": \"" + temperatura  + "\","
+                + " \"gravidade\": \"" + gravidade  + "\" }";
     }
 
     public int compareTo(Paciente o) {

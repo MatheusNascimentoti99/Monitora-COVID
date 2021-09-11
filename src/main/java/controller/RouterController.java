@@ -57,13 +57,14 @@ public class RouterController {
             }
 
         }
-        if (path.equals("/medico/pacientes") && method.equals("GET")) {
+        else if (path.equals("/medico/pacientes") && method.equals("GET")) {
             route = new MedicoRouter();
             if (method.equals("GET")) {
                 return ((MedicoRouter)route).GETPatientes(json, data_base);
             }
 
         }
-        return null;
+        String[] responseNotFoud = {"404", "Not found", ""};
+        return responseNotFoud;
     }
 }

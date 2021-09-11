@@ -31,7 +31,7 @@ public class main {
             //Converte o parametro recebido para int (número da porta)
             System.out.println("Incializando o servidor...");
             //Iniciliza o servidor
-            serv = new ServerSocket(8003);
+            serv = new ServerSocket(8000);
             // serv = new ServerSocket(Integer.valueOf(System.getenv("PORT")));
 
             System.out.println("Servidor iniciado, ouvindo a porta " + serv.getLocalPort());
