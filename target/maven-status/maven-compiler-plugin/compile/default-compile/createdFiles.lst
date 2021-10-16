@@ -1,9 +1,15 @@
+util/RequisicaoHTTP.class
 view/main.class
 routes/PacienteRouter.class
+thread/OuvinteInterno.class
+util/FilaPrioridade$1.class
 util/RespostaHTTP.class
-util/RequisicaoHTTP.class
 model/Paciente.class
+thread/ThreadOuvinte.class
+util/No.class
+util/FilaPrioridade$it.class
 controller/RouterController.class
 routes/Router.class
 thread/ThreadCliente.class
 routes/MedicoRouter.class
+util/FilaPrioridade.class
