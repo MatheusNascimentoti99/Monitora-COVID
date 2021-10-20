@@ -47,7 +47,7 @@
             </plugin>
         </plugins>
     </build>
-    <name>Server</name>
+    <name>Server_heroku</name>
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
