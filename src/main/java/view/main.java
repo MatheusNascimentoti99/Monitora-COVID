@@ -20,6 +20,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Editor;
 import thread.ThreadCliente;
 import thread.ThreadOuvinte;
 
@@ -27,20 +28,25 @@ import thread.ThreadOuvinte;
 public class main {
 
     public static HashMap<String, Object> data_base;
+    public static Editor publicador;
 
     public static void main(String[] args) {
+        publicador = new Editor("tcp://broker.mqttdashboard.com:1883");
+        publicador.iniciar();
+        
         data_base = new HashMap<String, Object>();
         ServerSocket serv = null;
         try {
             System.out.println("Incializando o servidor...");
             //Iniciliza o servidor
-            //serv = new ServerSocket(8000);
-            serv = new ServerSocket(Integer.valueOf(System.getenv("PORT")));
+            serv = new ServerSocket(8000);
+            //serv = new ServerSocket(Integer.valueOf(System.getenv("PORT")));
 
             System.out.println("Servidor iniciado, ouvindo a porta " + serv.getLocalPort());
             System.out.println("Host: " + serv.toString());
             //Aguarda conexões
             new ThreadOuvinte(data_base, "tcp://broker.mqttdashboard.com:1883", null, null, "problema2/dadosPaciente", 2);
+            new ThreadOuvinte(data_base, "tcp://broker.mqttdashboard.com:1883", null, null, "problema2/pacienteMonitorado", 2);
 
             
             while (true) {
