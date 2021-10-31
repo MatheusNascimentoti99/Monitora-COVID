@@ -18,7 +18,9 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import java.util.Iterator;
 import model.Paciente;
-import thread.ThreadOuvinte;
+import thread.*;
+import util.FilaPrioridade;
+import view.main;
 
 
 public class MedicoRouter implements Router {
@@ -71,35 +73,28 @@ public class MedicoRouter implements Router {
             int quantidade = 0;
             if (quant != null) {
                 quantidade = Integer.parseInt(quant);
-            }
-            if (quantidade > 0) {
-                int temp = 0;
-                System.out.println(i.hasNext());
-                while (i.hasNext() && temp < quantidade) {
-                    row = i.next();
-                    if (row instanceof Paciente) {
-                        jsonBuilder.append(row.toString());
-                        if (i.hasNext()) {
-                            jsonBuilder.append(',');
-                        }
-                    }
-                    temp++;
-                }
-            } else {
-                while (i.hasNext()) {
-                    row = i.next();
-                    if (row instanceof Paciente) {
-                        jsonBuilder.append(row.toString());
-                        if (i.hasNext()) {
-                            jsonBuilder.append(',');
-                        }
-                    }
-
+                if(ThreadCliente.getQtd_list() != quantidade){
+                    ThreadCliente.setQtd_list(quantidade);
+                    main.publicador.publicar("problema2/quantidadePaciente", quant.getBytes(), 0);
+                    ThreadOuvinte.setPacientes(new FilaPrioridade());
                 }
             }
-
+            int count = 0;
+            System.out.println(i.hasNext());
+            row = i.next();
+            while (row !=null && count < quantidade) {
+                if (row instanceof Paciente) {
+                    jsonBuilder.append(row.toString());
+                    row = i.next();
+                    if (row != null) {
+                        jsonBuilder.append(',');
+                    }
+                }
+                count++;
+            }
             jsonBuilder.append(']');
-            System.out.println(data_base.size());
+            System.out.println("Json: " + count);
+            System.out.println("Fila: "+ ThreadOuvinte.getPacientes().size());
             res[0] = "200";
             res[1] = "OK";
             res[2] = jsonBuilder.toString();

@@ -14,6 +14,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ import java.util.Objects;
  * arterial, saturação do oxigênio e o estado de gravidade do paciente.
  *
  */
-public class Paciente implements Comparable<Paciente>, Comparator<Object> {
+public class Paciente implements Comparable<Paciente>, Comparator<Object>, Serializable {
 
     private String cpf;
     private String nome;
